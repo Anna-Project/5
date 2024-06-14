@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #808080; /* Fundo cinza */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Esconder overflow para a chuva */
+        }
+        .container {
+            background-color: #ffffff; /* Fundo branco */
+            padding: 20px;
+            border-radius: 10px; /* Bordas arredondadas */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            margin-bottom: 20px; /* Espaço entre as caixas */
+            text-align: center;
+            z-index: 1; /* Garantir que a caixa fique sobre a chuva */
+        }
+        #question {
+            font-size: 24px;
+            color: #8B0000; /* Vermelho escuro */
+        }
+        #prompt {
+            font-size: 24px;
+            color: #8B0000; /* Vermelho escuro */
+        }
+        .heart {
+            position: absolute;
+            top: -10px;
+            font-size: 24px; /* Tamanho dos corações */
+            animation: fall 5s linear infinite;
+            z-index: 0; /* Garantir que os corações fiquem atrás das caixas */
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espaço entre os botões */
+            position: relative;
+            top: 50px; /* Posiciona os botões abaixo do bloco branco */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #8B0000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #a00000;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="prompt">Antes de prosseguir responda a seguinte pergunta:</div>
+    </div>
+    <div class="container">
+        <div id="question">Eu estou sempre certo?</div>
+    </div>
+    <div class="buttons">
+        <button id="sim">Sim</button>
+        <button id="nao">Não</button>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '🖤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        window.onload = function () {
+            setInterval(createHeart, 300);
+
+            const simButton = document.getElementById("sim");
+            const naoButton = document.getElementById("nao");
+
+            simButton.addEventListener("click", () => {
+                alert("Te amo!");
+            });
+
+            const handleNao = () => {
+                naoButton.style.position = "fixed";
+                const rand = Math.random();
+                const randTop = (rand * window.innerHeight) % (window.innerHeight - naoButton.offsetHeight);
+                const randLeft = (rand * window.innerWidth) % (window.innerWidth - naoButton.offsetWidth);
+
+                naoButton.style.top = `${randTop}px`;
+                naoButton.style.left = `${randLeft}px`;
+            };
+
+            naoButton.addEventListener("click", handleNao);
+            naoButton.addEventListener("mouseover", handleNao);
+        };
+    </script>
+</body>
+</html>
