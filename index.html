@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionário</title>
+    <title>🖤🖤🖤</title>
     <style>
         body {
             display: flex;
@@ -24,10 +24,6 @@
             margin-bottom: 20px; /* Espaço entre as caixas */
             text-align: center;
             z-index: 1; /* Garantir que a caixa fique sobre a chuva */
-        }
-        #question {
-            font-size: 24px;
-            color: #8B0000; /* Vermelho escuro */
         }
         #prompt {
             font-size: 24px;
@@ -64,18 +60,69 @@
             0% { transform: translateY(-100px); opacity: 1; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            text-align: center; /* Centraliza conteúdo horizontalmente */
+            margin: 15% auto; /* 15% from the top and centered */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #bonusImage {
+            display: none;
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            margin-left: auto; /* Centraliza horizontalmente */
+            margin-right: auto; /* Centraliza horizontalmente */
+        }
+        #voltarButton {
+            display: none;
+            margin-top: 20px;
+            margin-left: auto; /* Centraliza horizontalmente */
+            margin-right: auto; /* Centraliza horizontalmente */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="prompt">Antes de prosseguir responda a seguinte pergunta:</div>
-    </div>
-    <div class="container">
-        <div id="question">Eu estou sempre certo?</div>
+        <div id="prompt">Bom ... Agora, finalmente ... A grande pergunta?</div>
     </div>
     <div class="buttons">
         <button id="sim">Sim</button>
-        <button id="nao">Não</button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Pensando bem ... Mais tarde eu te conto, Até mais tarde ... Beijos Beijos 🖤</p>
+            <button id="bonus">Bonus?</button>
+            <img id="bonusImage" src="C:\Users\leand\Downloads\aa.jfif" alt="Imagem do bônus"> <!-- Substitua pelo seu URL de imagem -->
+            <button id="voltarButton">Voltar?</button>
+        </div>
     </div>
 
     <script>
@@ -96,24 +143,35 @@
             setInterval(createHeart, 300);
 
             const simButton = document.getElementById("sim");
-            const naoButton = document.getElementById("nao");
+            const modal = document.getElementById("myModal");
+            const closeSpan = document.querySelector(".close");
+            const bonusButton = document.getElementById("bonus");
+            const bonusImage = document.getElementById("bonusImage");
+            const voltarButton = document.getElementById("voltarButton");
 
             simButton.addEventListener("click", () => {
-                alert("Te amo!");
+                modal.style.display = "block";
             });
 
-            const handleNao = () => {
-                naoButton.style.position = "fixed";
-                const rand = Math.random();
-                const randTop = (rand * window.innerHeight) % (window.innerHeight - naoButton.offsetHeight);
-                const randLeft = (rand * window.innerWidth) % (window.innerWidth - naoButton.offsetWidth);
-
-                naoButton.style.top = `${randTop}px`;
-                naoButton.style.left = `${randLeft}px`;
+            closeSpan.onclick = function() {
+                modal.style.display = "none";
             };
 
-            naoButton.addEventListener("click", handleNao);
-            naoButton.addEventListener("mouseover", handleNao);
+            bonusButton.addEventListener("click", () => {
+                bonusButton.style.display = "none";
+                bonusImage.style.display = "block";
+                voltarButton.style.display = "block";
+            });
+
+            voltarButton.addEventListener("click", () => {
+                window.location.href = "https://anna-project.github.io/";
+            });
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
         };
     </script>
 </body>
